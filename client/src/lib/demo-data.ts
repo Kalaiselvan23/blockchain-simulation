@@ -1,4 +1,4 @@
-import type { Block, Transaction, BlockchainState } from "@/lib/type"
+import type { Block, Transaction, BlockchainState } from "@/lib/types"
 
 // Generate a random hash-like string
 const generateHash = (length = 64): string => {

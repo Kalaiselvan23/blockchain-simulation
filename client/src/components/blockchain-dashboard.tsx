@@ -23,6 +23,7 @@ import { Position, } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import FlowDiagram from "./FlowDiagram"
 import { Lock, FileText } from "lucide-react"
+import { useTheme } from './theme-provider';
 
 
 export function BlockchainDashboard() {
@@ -33,9 +34,10 @@ export function BlockchainDashboard() {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isAddingTransaction, setIsAddingTransaction] = useState<boolean>(false)
   const [isValidating, setIsValidating] = useState<boolean>(false)
+  const { theme } = useTheme();
+  console.log(theme)
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  // Fetch initial blockchain data
   useEffect(() => {
     const loadData = async () => {
       setIsLoading(true)
@@ -113,33 +115,35 @@ export function BlockchainDashboard() {
   }))
 
 
-
-  
   const nodes = blocks.map((block, index) => ({
     id: block.index.toString(),
     position: { x: index * 280, y: 100 },
     data: {
       label: (
-        <div className="p-4 bg-white border shadow-lg rounded-lg w-48 text-xs text-center">
+        <div
+          className={`p-4 border shadow-lg rounded-lg w-48 text-xs text-center
+          ${(theme === "dark" || theme==="system") ? "bg-gray-800 border-gray-700 text-white" : "bg-white text-gray-900"}
+        `}
+        >
           {/* Block Title */}
-          <div className="font-bold text-sm text-primary flex items-center justify-center gap-1">
+          <div className={`font-bold text-sm flex items-center justify-center gap-1 ${(theme === "dark" || theme==="system") ? "text-blue-400" : "text-primary"}`}>
             <FileText className="h-4 w-4" />
             Block #{block.index}
           </div>
-  
+
           {/* Block Hash */}
-          <p className="text-muted-foreground text-[11px] flex items-center justify-center gap-1 mt-1">
+          <p className={`text-[11px] flex items-center justify-center gap-1 mt-1 ${(theme === "dark" || theme==="system") ? "text-gray-400" : "text-muted-foreground"}`}>
             <Lock className="h-3 w-3" />
             <span className="truncate w-32">{block.hash.slice(0, 10)}...</span>
           </p>
-  
+
           {/* Transactions Count */}
-          <p className="text-muted-foreground text-[11px] mt-1">
+          <p className={`text-[11px] mt-1 ${(theme === "dark" || theme==="system") ? "text-gray-300" : "text-muted-foreground"}`}>
             Transactions: <span className="font-semibold">{block.transactions.length}</span>
           </p>
-  
+
           {/* Previous Hash */}
-          <p className="text-muted-foreground text-[11px] flex items-center justify-center gap-1 mt-1">
+          <p className={`text-[11px] flex items-center justify-center gap-1 mt-1 ${(theme === "dark" || theme==="system") ? "text-gray-400" : "text-muted-foreground"}`}>
             <ArrowRight className="h-3 w-3" />
             <span className="truncate w-32">{block.previousHash.slice(0, 10)}...</span>
           </p>
@@ -150,7 +154,7 @@ export function BlockchainDashboard() {
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
   }))
-  
+
 
 
   return (
@@ -188,7 +192,7 @@ export function BlockchainDashboard() {
                   {isLoading ? "Loading blockchain data..." : `Current chain length: ${blocks.length} blocks`}
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4 max-h-[600px] overflow-y-auto p-4">
+              <CardContent className="space-y-4 max-h-[600px] overflow-y-auto scrollbar-hide p-4">
                 {isLoading ? (
                   <div className="flex flex-col items-center justify-center py-8">
                     <Loader2 className="h-8 w-8 animate-spin text-primary mb-4" />

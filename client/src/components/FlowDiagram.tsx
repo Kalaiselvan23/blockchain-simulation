@@ -25,7 +25,7 @@ const FlowDiagram = ({ isModalOpen, setIsModalOpen, nodes, edges }: propsType) =
             <DialogTitle>Blockchain Flow Diagram</DialogTitle>
           </DialogHeader>
           <div className="flex-1 overflow-auto p-4">
-            <ReactFlow nodes={nodes} edges={edges} fitView>
+            <ReactFlow colorMode='dark' nodes={nodes} edges={edges} fitView>
               <Background />
               <Controls />
               <MiniMap />
