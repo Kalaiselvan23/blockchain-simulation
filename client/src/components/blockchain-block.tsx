@@ -10,15 +10,15 @@ import type { Block } from "@/lib/types"
 import { formatDate } from "@/lib/utils"
 
 interface BlockchainBlockProps {
-  block: Block
-  onTamper: () => void
+  block: Block,
 }
 
-export function BlockchainBlock({ block, onTamper }: BlockchainBlockProps) {
+export function BlockchainBlock({ block }: BlockchainBlockProps) {
   const [isOpen, setIsOpen] = useState(block.index === 0)
 
+
   return (
-    <Card className="border border-muted transition-all duration-300 hover:border-primary/50">
+    <Card className={`border border-muted transition-all duration-300 hover:border-primary/50`}>
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -32,20 +32,7 @@ export function BlockchainBlock({ block, onTamper }: BlockchainBlockProps) {
               <Clock className="h-3 w-3" />
               <span className="text-xs">{formatDate(block.timestamp)}</span>
             </Badge>
-            {block.index > 0 && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  onTamper()
-                }}
-                className="h-7 w-7 text-destructive hover:text-destructive hover:bg-destructive/10"
-              >
-                <AlertTriangle className="h-4 w-4" />
-                <span className="sr-only">Tamper with block</span>
-              </Button>
-            )}
+
           </div>
         </div>
       </CardHeader>
@@ -55,7 +42,7 @@ export function BlockchainBlock({ block, onTamper }: BlockchainBlockProps) {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Database className="h-4 w-4" />
-                <span>{block.transactions.length} transactions</span>
+                <span>{block.index>0?block.transactions.length :0} transactions</span>
               </div>
               {isOpen ? (
                 <ChevronUp className="h-4 w-4 text-muted-foreground" />
@@ -92,7 +79,7 @@ export function BlockchainBlock({ block, onTamper }: BlockchainBlockProps) {
                 <h4 className="text-sm font-medium flex items-center gap-2">
                   <Database className="h-4 w-4" /> Transactions
                 </h4>
-                {block.transactions.length > 0 ? (
+                {block.transactions.length > 0 && block.index>0 ? (
                   <div className="space-y-2">
                     {block.transactions.map((tx, idx) => (
                       <div key={idx} className="p-2 bg-muted rounded-md">

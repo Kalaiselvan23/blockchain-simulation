@@ -1,7 +1,6 @@
 import React from 'react'
-import { DialogTrigger, DialogContent, DialogTitle, DialogHeader, Dialog } from './ui/dialog'
-import { Button } from './ui/button'
-import { Eye } from 'lucide-react'
+import { DialogContent, DialogTitle, DialogHeader, Dialog } from './ui/dialog'
+
 import { Background, Controls, MiniMap, ReactFlow } from '@xyflow/react'
 
 type propsType = {
@@ -14,11 +13,6 @@ type propsType = {
 const FlowDiagram = ({ isModalOpen, setIsModalOpen, nodes, edges }: propsType) => {
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline">
-          <Eye />
-        </Button>
-      </DialogTrigger>
       <DialogContent className="dialog-content">        
         <div className="flex h-full flex-col">
           <DialogHeader className="border-b p-4">

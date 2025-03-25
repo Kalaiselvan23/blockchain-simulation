@@ -1,5 +1,3 @@
-"use client"
-
 import type React from "react"
 
 import { useState } from "react"
@@ -31,8 +29,6 @@ export function TransactionForm({ onAddTransaction, isLoading = false }: Transac
     }
 
     onAddTransaction(transaction)
-
-    // Reset form
     setSender("")
     setRecipient("")
     setAmount("")
