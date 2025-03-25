@@ -113,6 +113,14 @@ class Blockchain {
     }
     return true;
   }
+  
+  /**
+   * resetting the entire blockchain(rollback to 0 blocks, 0 transactions)
+   */
+  resetBlockchain(){
+    this.chain=[this.createGenesisBlock()]
+    this.pendingTransactions=[]
+  }
 }
 
 module.exports = Blockchain;

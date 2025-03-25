@@ -10,7 +10,12 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get("/blockchain", (req, res) => {
-  res.json(blockchain.chain);
+  const result={
+    blocks:blockchain.chain,
+    isValid:blockchain.isChainValid,
+    pendingTransactions:blockchain.pendingTransactions,
+  }
+  res.json(result);
 });
 
 app.post("/transaction", (req, res) => {
@@ -23,6 +28,11 @@ app.post("/mine", (req, res) => {
   const newBlock = blockchain.minePendingTransactions();
   res.json(newBlock);
 });
+
+app.post("/reset",(req,res)=>{
+  blockchain.resetBlockchain();
+  res.json({message:"Reset Successfully!!"})
+})
 
 app.get("/validate", (req, res) => {
   const isValid = blockchain.isChainValid();
