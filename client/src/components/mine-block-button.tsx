@@ -5,11 +5,12 @@ interface MineBlockButtonProps {
   onMine: () => void
   isMining: boolean
   disabled: boolean
+  selector:string
 }
 
-export function MineBlockButton({ onMine, isMining, disabled }: MineBlockButtonProps) {
+export function MineBlockButton({ onMine, isMining, disabled ,selector}: MineBlockButtonProps) {
   return (
-    <Button onClick={onMine} disabled={disabled || isMining} className="w-full relative overflow-hidden group">
+    <Button onClick={onMine} disabled={disabled || isMining} className={`${selector} w-full relative overflow-hidden group`}>
       {isMining ? (
         <>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
